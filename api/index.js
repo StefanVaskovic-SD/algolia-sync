@@ -57,6 +57,7 @@ module.exports = async (req, res) => {
         name: f.name || f.title || 'Untitled',
         slug: f.slug || '',
         familyName: f.familyname || 'N/A',
+        image: (f['image-3'] && f['image-3'].url) || '', 
         url: `${basePath}${f.slug || 'undefined'}`,
       };
     });
