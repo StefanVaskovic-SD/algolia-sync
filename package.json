@@ -1,0 +1,17 @@
+{
+  "name": "algolia-sync",
+  "version": "1.0.0",
+  "main": "sync.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "algoliasearch": "^4.24.0",
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2"
+  }
+}
