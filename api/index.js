@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   const COLLECTION_IDS = [
    // '64e76dbbe94dbbf00a71619e', // Our stories
    // '64e76dbbe94dbbf00a716348', // Messika stories
-   // '64e76dbbe94dbbf00a716315', // Roberto Coin stories
+    '64e76dbbe94dbbf00a716315', // Roberto Coin stories
    // '64e76dbbe94dbbf00a716332', // Timepieces stories
     '64e76dbbe94dbbf00a716159', // Rolex single products
     '64e76dbbe94dbbf00a7161ec', // Tudor single products
@@ -62,10 +62,11 @@ module.exports = async (req, res) => {
       case '64e76dbbe94dbbf00a716240':
         basePath = '/messika/';
         break;
-      /*
+      
       case '64e76dbbe94dbbf00a716223':
         basePath = '/roberto-coin/';
         break;
+        /*
       case '64e76dbbe94dbbf00a7162e0':
         basePath = '/swiss-kubik/';
         break;
@@ -112,6 +113,14 @@ module.exports = async (req, res) => {
       } else {
         familyName = '';
       }
+
+      let rolexPriceESR = '';
+      if (collectionId === '64e76dbbe94dbbf00a716159') {
+        rolexPriceESR: f.price;
+      } else {
+        rolexPriceESR = '';
+      }
+
       
 
       return {
@@ -121,6 +130,9 @@ module.exports = async (req, res) => {
         price: f.price || '',
         familyName,
         image,
+        rolexPriceESR,
+        rolexPriceEHU: f.['price-ehu'] || '',
+        rolexPriceEME; f.['price-eme'] || '',
         url: `${basePath}${f.slug || 'undefined'}`,
       };
     });
