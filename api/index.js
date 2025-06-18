@@ -121,7 +121,7 @@ module.exports = async (req, res) => {
         rolexPriceESR = '';
       }
 
-      
+
 
       return {
         objectID: item._id || item.id,
@@ -132,7 +132,7 @@ module.exports = async (req, res) => {
         image,
         rolexPriceESR,
         rolexPriceEHU: f.['price-ehu'] || '',
-        rolexPriceEME; f.['price-eme'] || '',
+        rolexPriceEME: f.['price-eme'] || '',
         url: `${basePath}${f.slug || 'undefined'}`,
       };
     });
