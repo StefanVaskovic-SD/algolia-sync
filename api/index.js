@@ -2,12 +2,20 @@ const algoliasearch = require('algoliasearch');
 const fetch = require('node-fetch');
 
 module.exports = async (req, res) => {
-  // --- Config ---
-  const WEBFLOW_TOKEN = '7e14b75b3b16d3ade3884745770eee89a7904bd00dc54f6ecc7a9f8dcb8bc293';
+  const WEBFLOW_TOKEN = '0ccd999359fac14f8c01ac8b2516ed918863515cee4c3d184f02fd6d0419d9d4';
   const COLLECTION_IDS = [
-    '67f4cfa4121a779535ec534d', // Rolex single products
-    '685172a36e0ea2ec8c738474', // Rolex single products 2
+    '64e76dbbe94dbbf00a71619e', // Our stories
+    '64e76dbbe94dbbf00a716348', // Messika stories
+    '64e76dbbe94dbbf00a716315', // Roberto Coin stories
+    '64e76dbbe94dbbf00a716332', // Timepieces stories
+    '64e76dbbe94dbbf00a716159', // Rolex single products
+    '64e76dbbe94dbbf00a7161ec', // Tudor single products
+    '64e76dbbe94dbbf00a716223', // Roberto Coin single articles
+    '64e76dbbe94dbbf00a716240', // Messika single articles
+    '64e76dbbe94dbbf00a7160e9', // Petrovic Diamonds single products
+    '64e76dbbe94dbbf00a7162e0', // Swiss Kubik single articles
   ];
+
   const ALGOLIA_APP_ID = 'UJ858U3VBC';
   const ALGOLIA_ADMIN_KEY = '1199d5f3fd1bc4efec9cc1e5f093415a';
   const ALGOLIA_INDEX_NAME = 'webflow_products';
@@ -15,7 +23,6 @@ module.exports = async (req, res) => {
   const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
   const index = client.initIndex(ALGOLIA_INDEX_NAME);
 
-  // --- Fetch all items from a Webflow collection (paginated) ---
   async function fetchAllFromCollection(collectionId) {
     const allItems = [];
     let offset = 0;
@@ -40,30 +47,26 @@ module.exports = async (req, res) => {
     return allItems;
   }
 
-  // --- Normalize items depending on their collection ---
   function normalize(items, collectionId) {
+    if (items.length > 0) {
+      console.log(`🔍 Fields for first item in collection ${collectionId}:`);
+      console.log(items[0].fieldData || {});
+    }
+
     return items.map(item => {
       const f = item.fieldData || {};
-
-      let basePath = '/';
-      if (collectionId === '67f4cfa4121a779535ec534d') {
-        basePath = '/rolex-watches/';
-      } else if (collectionId === '685172a36e0ea2ec8c738474') {
-        basePath = '/rolex-single-products-2/';
-      }
 
       return {
         objectID: item._id || item.id,
         name: f.name || f.title || 'Untitled',
         slug: f.slug || '',
-        familyName: f.familyname || 'N/A',
-        image: (f['image-3'] && f['image-3'].url) || '', 
-        url: `${basePath}${f.slug || 'undefined'}`,
+        familyName: f.familyname || f['family-name'] || 'N/A',
+        image: (f['image-3'] && f['image-3'].url) || (f['main-image'] && f['main-image'].url) || '',
+        url: `/${f.slug || 'undefined'}`,
       };
     });
   }
 
-  // --- Run sync ---
   try {
     let allFormatted = [];
 
@@ -73,7 +76,7 @@ module.exports = async (req, res) => {
       allFormatted.push(...normalized);
     }
 
-    await index.clearObjects(); // remove old records
+    await index.clearObjects();
     await index.saveObjects(allFormatted, { autoGenerateObjectIDIfNotExist: true });
 
     res.status(200).json({ message: `✅ Synced ${allFormatted.length} items to Algolia.` });
