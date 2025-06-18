@@ -48,21 +48,63 @@ module.exports = async (req, res) => {
   }
 
   function normalize(items, collectionId) {
-    if (items.length > 0) {
-      console.log(`🔍 Fields for first item in collection ${collectionId}:`);
-      console.log(items[0].fieldData || {});
+    let basePath = '/';
+    switch (collectionId) {
+      case '64e76dbbe94dbbf00a716159':
+        basePath = '/rolex-watches/';
+        break;
+      case '64e76dbbe94dbbf00a7161ec':
+        basePath = '/tudor/';
+        break;
+      case '64e76dbbe94dbbf00a7160e9':
+        basePath = '/petrovic-diamonds/';
+        break;
+      case '64e76dbbe94dbbf00a716223':
+        basePath = '/roberto-coin/';
+        break;
+      case '64e76dbbe94dbbf00a716240':
+        basePath = '/messika/';
+        break;
+      case '64e76dbbe94dbbf00a7162e0':
+        basePath = '/swiss-kubik/';
+        break;
+      case '64e76dbbe94dbbf00a71619e':
+        basePath = '/our-stories/';
+        break;
+      case '64e76dbbe94dbbf00a716348':
+        basePath = '/messika-stories/';
+        break;
+      case '64e76dbbe94dbbf00a716315':
+        basePath = '/roberto-coin-stories/';
+        break;
+      case '64e76dbbe94dbbf00a716332':
+        basePath = '/timepieces-story/';
+        break;
     }
 
     return items.map(item => {
       const f = item.fieldData || {};
+
+      let image = '';
+      if (collectionId === '64e76dbbe94dbbf00a71619e') {
+        image = f.imge?.url || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a716348') {
+        image = f['hero-background-image']?.url || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a716315') {
+        image = f.imge?.url || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a716332') {
+        image = f['large-image-watch-image']?.url || '';
+      } else {
+        image = f['grid-image']?.url || '';
+      }
 
       return {
         objectID: item._id || item.id,
         name: f.name || f.title || 'Untitled',
         slug: f.slug || '',
         familyName: f.familyname || f['family-name'] || 'N/A',
-        image: (f['image-3'] && f['image-3'].url) || (f['main-image'] && f['main-image'].url) || '',
-        url: `/${f.slug || 'undefined'}`,
+        image,
+        url: `${basePath}${f.slug || 'undefined'}`,
       };
     });
   }
