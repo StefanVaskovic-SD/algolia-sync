@@ -114,7 +114,8 @@ module.exports = async (req, res) => {
 
     for (const id of COLLECTION_IDS) {
       const items = await fetchAllFromCollection(id);
-      const normalized = normalize(items, id);
+      const publishedItems = items.filter(item => !item.isDraft); // ✅ filter out drafts
+      const normalized = normalize(publishedItems, id);
       allFormatted.push(...normalized);
     }
 
