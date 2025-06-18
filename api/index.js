@@ -102,8 +102,11 @@ module.exports = async (req, res) => {
       }
 
       let familyName = '';
+      let rolexPriceESR = '';
+      
       if (collectionId === '64e76dbbe94dbbf00a716159') {
         familyName = f.familyname;
+        rolexPriceESR: f.price;
       } else if (collectionId === '64e76dbbe94dbbf00a7161ec') {
         familyName = f['item-name'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a7160e9') {
@@ -112,14 +115,10 @@ module.exports = async (req, res) => {
         familyName = f['item-name'] || '';
       } else {
         familyName = '';
-      }
-
-      let rolexPriceESR = '';
-      if (collectionId === '64e76dbbe94dbbf00a716159') {
-        rolexPriceESR: f.price;
-      } else {
         rolexPriceESR = '';
       }
+
+      
 
 
 
