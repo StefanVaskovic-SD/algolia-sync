@@ -4,16 +4,16 @@ const fetch = require('node-fetch');
 module.exports = async (req, res) => {
   const WEBFLOW_TOKEN = '0ccd999359fac14f8c01ac8b2516ed918863515cee4c3d184f02fd6d0419d9d4';
   const COLLECTION_IDS = [
-    '64e76dbbe94dbbf00a71619e', // Our stories
-    '64e76dbbe94dbbf00a716348', // Messika stories
-    '64e76dbbe94dbbf00a716315', // Roberto Coin stories
-    '64e76dbbe94dbbf00a716332', // Timepieces stories
+   // '64e76dbbe94dbbf00a71619e', // Our stories
+   // '64e76dbbe94dbbf00a716348', // Messika stories
+   // '64e76dbbe94dbbf00a716315', // Roberto Coin stories
+   // '64e76dbbe94dbbf00a716332', // Timepieces stories
     '64e76dbbe94dbbf00a716159', // Rolex single products
     '64e76dbbe94dbbf00a7161ec', // Tudor single products
-    '64e76dbbe94dbbf00a716223', // Roberto Coin single articles
-    '64e76dbbe94dbbf00a716240', // Messika single articles
+   // '64e76dbbe94dbbf00a716223', // Roberto Coin single articles
+    '64e76dbbe94dbbf00a716240', // Messika single products
     '64e76dbbe94dbbf00a7160e9', // Petrovic Diamonds single products
-    '64e76dbbe94dbbf00a7162e0', // Swiss Kubik single articles
+   // '64e76dbbe94dbbf00a7162e0', // Swiss Kubik single articles
   ];
 
   const ALGOLIA_APP_ID = 'UJ858U3VBC';
@@ -59,11 +59,12 @@ module.exports = async (req, res) => {
       case '64e76dbbe94dbbf00a7160e9':
         basePath = '/petrovic-diamonds/';
         break;
-      case '64e76dbbe94dbbf00a716223':
-        basePath = '/roberto-coin/';
-        break;
       case '64e76dbbe94dbbf00a716240':
         basePath = '/messika/';
+        break;
+      /*
+      case '64e76dbbe94dbbf00a716223':
+        basePath = '/roberto-coin/';
         break;
       case '64e76dbbe94dbbf00a7162e0':
         basePath = '/swiss-kubik/';
@@ -80,6 +81,7 @@ module.exports = async (req, res) => {
       case '64e76dbbe94dbbf00a716332':
         basePath = '/timepieces-story/';
         break;
+        */
     }
 
     return items.map(item => {
@@ -116,6 +118,7 @@ module.exports = async (req, res) => {
         objectID: item._id || item.id,
         name: f.name || f.title || 'Untitled',
         slug: f.slug || '',
+        price: f.price || '',
         familyName,
         image,
         url: `${basePath}${f.slug || 'undefined'}`,
