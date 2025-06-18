@@ -103,7 +103,7 @@ module.exports = async (req, res) => {
 
       let familyName = '';
       let rolexPriceESR = '';
-      
+
       if (collectionId === '64e76dbbe94dbbf00a716159') {
         familyName = f.familyname;
         rolexPriceESR: f.price;
@@ -129,6 +129,7 @@ module.exports = async (req, res) => {
         price: f.price || '',
         familyName,
         image,
+        noviFild : f.name || '',
         rolexPriceESR,
         rolexPriceEHU: f.['price-ehu'] || '',
         rolexPriceEME: f.['price-eme'] || '',
