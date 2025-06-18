@@ -102,6 +102,7 @@ module.exports = async (req, res) => {
 
       let familyName = '';
       let rolexPriceESR = '';
+      let videoURL = '';
 
       if (collectionId === '64e76dbbe94dbbf00a716159') {
         familyName = f.familyname;
@@ -112,13 +113,14 @@ module.exports = async (req, res) => {
         familyName = f['item-name'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a716240') {
         familyName = f['item-name'] || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a716223') {
+        videoURL = f['video-url-1'] || '';
       } else {
         familyName = '';
         rolexPriceESR = '';
       }
 
       
-
 
 
       return {
@@ -128,6 +130,7 @@ module.exports = async (req, res) => {
         price: f.price || '',
         familyName,
         image,
+        videoURL,
         rolexPriceESR,
         rolexPriceEHU: f['price-ehu'] || '',
         rolexPriceEME: f['price-eme'] || '',
