@@ -98,11 +98,23 @@ module.exports = async (req, res) => {
         image = f['grid-image']?.url || '';
       }
 
+      let familyName = '';
+      if (collectionId === '64e76dbbe94dbbf00a716159') {
+        familyName = f.familyname;
+      } else if (collectionId === '64e76dbbe94dbbf00a7161ec') {
+        familyName = f['item-name'] || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a7160e9') {
+        familyName = f['item-name'] || '';
+      } else {
+        familyName = '';
+      }
+      
+
       return {
         objectID: item._id || item.id,
         name: f.name || f.title || 'Untitled',
         slug: f.slug || '',
-        familyName: f.familyname || f['family-name'] || 'N/A',
+        familyName,
         image,
         url: `${basePath}${f.slug || 'undefined'}`,
       };
