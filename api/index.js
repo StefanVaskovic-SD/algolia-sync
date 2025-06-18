@@ -105,6 +105,8 @@ module.exports = async (req, res) => {
         familyName = f['item-name'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a7160e9') {
         familyName = f['item-name'] || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a716240') {
+        familyName = f['item-name'] || '';
       } else {
         familyName = '';
       }
