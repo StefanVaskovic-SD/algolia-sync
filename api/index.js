@@ -114,6 +114,7 @@ module.exports = async (req, res) => {
       } else if (collectionId === '64e76dbbe94dbbf00a716240') {
         familyName = f['item-name'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a716223') {
+        familyName = "Roberto Coin";
         videoURL = f['video-url-1'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a7162e0') {
         familyName = f['spec-family'] || '';
