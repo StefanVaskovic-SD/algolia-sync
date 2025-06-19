@@ -117,7 +117,7 @@ module.exports = async (req, res) => {
         familyName = "Roberto Coin";
         videoURL = f['video-url-1'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a7162e0') {
-        familyName = f['spec-family'] || '';
+        familyName = "Swiss Kubik";
       } else {
         familyName = '';
         rolexPriceESR = '';
