@@ -137,6 +137,7 @@ module.exports = async (req, res) => {
         rolexPriceESR,
         rolexPriceEHU: f['price-ehu'] || '',
         rolexPriceEME: f['price-eme'] || '',
+        createdOn: item.createdOn || item.created || '',
         url: `${basePath}${f.slug || 'undefined'}`,
       };
     });
@@ -151,6 +152,8 @@ module.exports = async (req, res) => {
       const normalized = normalize(publishedItems, id);
       allFormatted.push(...normalized);
     }
+    
+    allFormatted.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
 
     await index.clearObjects();
     await index.saveObjects(allFormatted, { autoGenerateObjectIDIfNotExist: true });
