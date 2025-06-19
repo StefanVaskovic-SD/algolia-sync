@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     '64e76dbbe94dbbf00a716223', // Roberto Coin single articles
     '64e76dbbe94dbbf00a716240', // Messika single products
     '64e76dbbe94dbbf00a7160e9', // Petrovic Diamonds single products
-   // '64e76dbbe94dbbf00a7162e0', // Swiss Kubik single articles
+    '64e76dbbe94dbbf00a7162e0', // Swiss Kubik single articles
   ];
 
   const ALGOLIA_APP_ID = 'UJ858U3VBC';
@@ -65,10 +65,10 @@ module.exports = async (req, res) => {
       case '64e76dbbe94dbbf00a716223':
         basePath = '/roberto-coin/';
         break;
-        /*
       case '64e76dbbe94dbbf00a7162e0':
         basePath = '/swiss-kubik/';
         break;
+        /*
       case '64e76dbbe94dbbf00a71619e':
         basePath = '/our-stories/';
         break;
@@ -115,6 +115,8 @@ module.exports = async (req, res) => {
         familyName = f['item-name'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a716223') {
         videoURL = f['video-url-1'] || '';
+      } else if (collectionId === '64e76dbbe94dbbf00a7162e0') {
+        familyName = f['spec-family'] || '';
       } else {
         familyName = '';
         rolexPriceESR = '';
