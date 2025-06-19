@@ -103,21 +103,28 @@ module.exports = async (req, res) => {
       let familyName = '';
       let rolexPriceESR = '';
       let videoURL = '';
+      let brand = '';
 
       if (collectionId === '64e76dbbe94dbbf00a716159') {
         familyName = f.familyname;
         rolexPriceESR = f.price;
+        brand = "Rolex";
       } else if (collectionId === '64e76dbbe94dbbf00a7161ec') {
         familyName = f['item-name'] || '';
+        brand = "Tudor";
       } else if (collectionId === '64e76dbbe94dbbf00a7160e9') {
         familyName = f['item-name'] || '';
+        brand = "Petrovic Diamonds";
       } else if (collectionId === '64e76dbbe94dbbf00a716240') {
         familyName = f['item-name'] || '';
+        brand = "Messika";
       } else if (collectionId === '64e76dbbe94dbbf00a716223') {
-        familyName = "Roberto Coin";
+        familyName = f.ref || '';
+        brand = "Roberto Coin";
         videoURL = f['video-url-1'] || '';
       } else if (collectionId === '64e76dbbe94dbbf00a7162e0') {
-        familyName = "Swiss Kubik";
+        familyName = f.ref || '';
+        brand = "Swiss Kubik";
       } else {
         familyName = '';
         rolexPriceESR = '';
@@ -134,6 +141,7 @@ module.exports = async (req, res) => {
         familyName,
         image,
         videoURL,
+        brand,
         rolexPriceESR,
         rolexPriceEHU: f['price-ehu'] || '',
         rolexPriceEME: f['price-eme'] || '',
@@ -152,7 +160,7 @@ module.exports = async (req, res) => {
       const normalized = normalize(publishedItems, id);
       allFormatted.push(...normalized);
     }
-    
+
     allFormatted.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
 
     await index.clearObjects();
